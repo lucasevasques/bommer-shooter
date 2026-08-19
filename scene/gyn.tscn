@@ -17,16 +17,16 @@ background_mode = 2
 sky = SubResource("Sky_pn2ac")
 glow_enabled = true
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0yc80"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0yc80"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0yc80"]
 albedo_texture = ExtResource("1_rev0u")
 uv1_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0yc80"]
 size = Vector2(200, 200)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0yc80"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_0yc80"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0yc80"]
 
@@ -39,12 +39,10 @@ environment = SubResource("Environment_rev0u")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1251356405]
-material_override = SubResource("StandardMaterial3D_0yc80")
-mesh = SubResource("PlaneMesh_0yc80")
-
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1887034148]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8710313, 0)
+collision_layer = 2
+collision_mask = 61
 script = ExtResource("2_kkyl4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1680365569]
@@ -56,7 +54,47 @@ mesh = SubResource("CapsuleMesh_0yc80")
 [node name="FPPCamera" type="Camera3D" parent="Player" unique_id=780828646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9951246, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1915280103]
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1915280103]
+collision_mask = 23
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1883540297]
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground" unique_id=1251356405]
+material_override = SubResource("StandardMaterial3D_0yc80")
+mesh = SubResource("PlaneMesh_0yc80")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1883540297]
 shape = SubResource("WorldBoundaryShape3D_0yc80")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=626598771]
+material_override = SubResource("StandardMaterial3D_0yc80")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1671191084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7891614, 1.2069702, 2.573944)
+size = Vector3(0.54125977, 3.4139404, 6.864685)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1856405770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.023268, 1.2069702, 2.584076)
+size = Vector3(0.54125977, 3.4139404, 6.8849487)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1760214182]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.395938, 1.2069702, -0.64936835)
+size = Vector3(0.54125977, 3.4139404, 9.709946)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1405202345]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.672491, 1.5442352, -0.45143133)
+operation = 2
+size = Vector3(0.9371338, 1.337616, 2.6932354)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1599864023]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.3769054, 1.2069702, 5.7366333)
+size = Vector3(0.54125977, 3.4139404, 9.762085)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D" unique_id=22684390]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.496511, 1.2649689, 5.7366333)
+operation = 2
+size = Vector3(0.54125977, 1.1174011, 2.0498505)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=560769879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56266, 1.2069702, 3.0075727)
+operation = 2
+size = Vector3(0.9942627, 3.4139404, 1.3617096)

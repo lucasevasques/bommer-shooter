@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dno72hdvohili"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0yc80"]
+radius = 0.1
+height = 0.2
+
+[node name="ImpactMesh" type="MeshInstance3D" unique_id=1936536906]
+mesh = SubResource("SphereMesh_0yc80")
