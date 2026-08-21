@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dno72hdvohili"]
+
+[ext_resource type="Script" uid="uid://dv8a7201kqdcl" path="res://script/impact_mesh.gd" id="1_vi6ll"]
+[ext_resource type="AudioStream" uid="uid://cvbbjns8y6qyr" path="res://asset/audio/hit01.sfxr" id="2_hs2jm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0yc80"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0yc80"]
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+scale_min = 0.099999994
+scale_max = 0.099999994
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1omvj"]
+disable_receive_shadows = true
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_i241j"]
+material = SubResource("StandardMaterial3D_1omvj")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0yc80"]
+random_pitch = 1.0594631
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("2_hs2jm")
+
+[node name="Impact" type="Node3D" unique_id=1745606905]
+script = ExtResource("1_vi6ll")
+
+[node name="ImpactMesh" type="MeshInstance3D" parent="." unique_id=1936536906]
+visible = false
+mesh = SubResource("SphereMesh_0yc80")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1209429435]
+emitting = false
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_0yc80")
+draw_pass_1 = SubResource("QuadMesh_i241j")
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="." unique_id=1792887366]
+stream = SubResource("AudioStreamRandomizer_0yc80")
+autoplay = true
+
+[node name="Light" type="OmniLight3D" parent="." unique_id=1038799971]
+light_energy = 5.0
+light_size = 2.0
+omni_range = 15.0

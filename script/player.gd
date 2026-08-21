@@ -24,6 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		fpp_camera.rotation.x = clampf(fpp_camera.rotation.x, -PI/2, PI/2) 
 	if event.is_action_pressed("attack"):
 		attack()
+		#screen_shake()
 	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -63,3 +64,11 @@ func attack() -> void:
 			var impact_mesh := IMPACT_MESH.instantiate()
 			add_sibling(impact_mesh)
 			impact_mesh.global_position = result["position"]
+			
+			if result["collider"] is RigidBody3D:
+				var obj: RigidBody3D = result["collider"]
+				obj.apply_force(-result["normal"] * 1000, result["position"])
+
+func screen_shake() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(fpp_camera, "v_offset", 0.0, 0.1).from(0.1)
