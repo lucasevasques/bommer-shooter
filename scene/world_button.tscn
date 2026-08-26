@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cy5df74yx12e1"]
+
+[ext_resource type="Script" uid="uid://j1i8cguimetd" path="res://script/world_button.gd" id="1_aal6e"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0yc80"]
+radius = 0.38812935
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0yc80"]
+albedo_color = Color(1, 0.20784314, 1, 1)
+
+[node name="WorldButton" type="Node3D" unique_id=1914252735]
+script = ExtResource("1_aal6e")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1811616000]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2069925070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85972637, 0)
+shape = SubResource("SphereShape3D_0yc80")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=889040025]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=397917506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9976437, 0)
+radius = 0.15
+height = 0.1
+material = SubResource("StandardMaterial3D_0yc80")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=761479599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+radius = 0.2
+height = 1.0

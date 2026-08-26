@@ -2,12 +2,12 @@ extends CharacterBody3D
 
 const IMPACT_MESH = preload("uid://dno72hdvohili")
 
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 var last_mouse_position: Vector2i
 var mouse_sens: float = 0.01
+@export var bullet_damage: float = 5
 
 @onready var fpp_camera: Camera3D = $FPPCamera
 
@@ -57,8 +57,9 @@ func attack() -> void:
 		var ray_direction: Vector3 = ray_origin + cam.project_ray_normal(mouse_position) *100
 		
 		var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_direction, collision_mask)
+		query.collide_with_areas = true
 		var result:= space_state.intersect_ray(query)
-		print(result)
+		#print(result)
 		
 		if not result.is_empty():
 			var impact_mesh := IMPACT_MESH.instantiate()
@@ -68,6 +69,13 @@ func attack() -> void:
 			if result["collider"] is RigidBody3D:
 				var obj: RigidBody3D = result["collider"]
 				obj.apply_force(-result["normal"] * 1000, result["position"])
+				
+			var collider: Node3D = result["collider"]
+			if collider.has_method("take_damage"):
+				collider.take_damage(bullet_damage)
+			else:
+				if collider.owner.has_method("take_damage"):
+					collider.owner.take_damage(bullet_damage)
 
 func screen_shake() -> void:
 	var tween: Tween = create_tween()

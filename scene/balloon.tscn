@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b3ks2q0mdbxtf"]
+
+[ext_resource type="Script" uid="uid://dydp1slea7h0d" path="res://script/balloon.gd" id="1_frv3s"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0yc80"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkpy8"]
+albedo_color = Color(0.7828381, 0.06991203, 0.08178926, 1)
+roughness = 0.12
+
+[sub_resource type="SphereMesh" id="SphereMesh_0yc80"]
+
+[node name="Balloon" type="RigidBody3D" unique_id=250776027]
+mass = 0.3
+gravity_scale = -0.3
+script = ExtResource("1_frv3s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=284306453]
+shape = SubResource("SphereShape3D_0yc80")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=596038885]
+material_override = SubResource("StandardMaterial3D_wkpy8")
+mesh = SubResource("SphereMesh_0yc80")

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://vv5oxqp513ae"]
+
+[ext_resource type="Script" uid="uid://dfet4thihp0y4" path="res://script/group_spawn_area.gd" id="1_ff4gj"]
+
+[node name="GroupSpawnArea" type="Node3D" unique_id=1752824439]
+script = ExtResource("1_ff4gj")
