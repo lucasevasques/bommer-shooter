@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://b2s3fxr7mnfrd"]
+
+[ext_resource type="Script" uid="uid://crfyow6qgdpd4" path="res://script/door.gd" id="1_2virm"]
+[ext_resource type="Texture2D" uid="uid://bq2up0vfsx2k8" path="res://asset/texture/Dark/texture_09.png" id="1_wywxx"]
+[ext_resource type="AudioStream" uid="uid://26sxrdcr8upv" path="res://asset/audio/open_door01.sfxr" id="3_f7ef2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knvvg"]
+albedo_texture = ExtResource("1_wywxx")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0yc80"]
+size = Vector3(3, 3, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0yc80"]
+size = Vector3(3, 3, 0.6)
+
+[sub_resource type="Animation" id="Animation_f1ow6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorBody:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OpenDoorSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ar1e0"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorBody:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 2.9, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OpenDoorSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ynobr"]
+_data = {
+&"RESET": SubResource("Animation_f1ow6"),
+&"open": SubResource("Animation_ar1e0")
+}
+
+[node name="Door4x4" type="Node3D" unique_id=784433822]
+script = ExtResource("1_2virm")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1098979445]
+material_override = SubResource("StandardMaterial3D_knvvg")
+use_collision = true
+collision_mask = 7
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1618795653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -0.48886716)
+size = Vector3(4, 4, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=889478862]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, -0.48886716)
+operation = 2
+size = Vector3(3, 3, 1)
+
+[node name="DoorBody" type="StaticBody3D" parent="." unique_id=2043009698]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorBody" unique_id=344858427]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, -0.5)
+shape = SubResource("BoxShape3D_0yc80")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DoorBody" unique_id=1958987835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, -0.5)
+mesh = SubResource("BoxMesh_0yc80")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1930627606]
+libraries/ = SubResource("AnimationLibrary_ynobr")
+
+[node name="OpenDoorSound" type="AudioStreamPlayer3D" parent="." unique_id=465014310]
+stream = ExtResource("3_f7ef2")

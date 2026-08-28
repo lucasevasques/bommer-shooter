@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://26sxrdcr8upv"
+path="res://.godot/imported/open_door01.sfxr-bb488e678c18993e1646112866cc7a50.sample"
+
+[deps]
+
+source_file="res://asset/audio/open_door01.sfxr"
+dest_files=["res://.godot/imported/open_door01.sfxr-bb488e678c18993e1646112866cc7a50.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0

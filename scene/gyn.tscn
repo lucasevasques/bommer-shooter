@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://bor25h8tahv3g" path="res://scene/barrel.tscn" id="3_kkyl4"]
 [ext_resource type="PackedScene" uid="uid://cy5df74yx12e1" path="res://scene/world_button.tscn" id="5_h3gkc"]
 [ext_resource type="PackedScene" uid="uid://vv5oxqp513ae" path="res://scene/group_spawn_area.tscn" id="6_rw1c6"]
+[ext_resource type="PackedScene" uid="uid://b2s3fxr7mnfrd" path="res://scene/door_4x4.tscn" id="8_87lll"]
+[ext_resource type="PackedScene" uid="uid://c405if4ygopwc" path="res://scene/enemy.tscn" id="9_bgu6j"]
+[ext_resource type="Script" uid="uid://heivlku125oi" path="res://script/game_master_component.gd" id="10_wy3a3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_n5dw3"]
 sky_top_color = Color(0.39535925, 0.33932814, 0.9063459, 1)
@@ -41,6 +44,8 @@ uv1_triplanar = true
 size = Vector2(200, 200)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0yc80"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkpy8"]
 
 [node name="Gyn" type="Node3D" unique_id=986773458]
 
@@ -164,6 +169,16 @@ size = Vector3(0.9942627, 3.4139404, 1.3617096)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.986, 1, 0)
 radius = 0.9506663
 
+[node name="CSGCorridorOutside" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1068779550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.870999, 1.9383615, -2.5)
+size = Vector3(4, 4, 7)
+
+[node name="CSGCorridorSub" type="CSGBox3D" parent="CSGCombiner3D" unique_id=75184861]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.901129, 1.9253935, -2.6000001)
+material_override = SubResource("StandardMaterial3D_wkpy8")
+operation = 2
+size = Vector3(3.8, 3.9, 7)
+
 [node name="Barrel" parent="." unique_id=539420222 instance=ExtResource("3_kkyl4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.0624063)
 
@@ -229,4 +244,20 @@ duration = 15.0
 interval = 0.5
 to_spawn = ExtResource("3_cbtax")
 
+[node name="Door4x4" parent="." unique_id=784433822 instance=ExtResource("8_87lll")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -13.880927, 0, -4.758461)
+
+[node name="WorldButton2" parent="." unique_id=1240081622 instance=ExtResource("5_h3gkc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.244599, -0.074607566, -5.426286)
+
+[node name="Enemy" parent="." unique_id=1044503888 instance=ExtResource("9_bgu6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.643423, 0, 5.081998)
+
+[node name="GameMasterComponent" type="Node" parent="." unique_id=232765934 node_paths=PackedStringArray("player")]
+script = ExtResource("10_wy3a3")
+player = NodePath("../Player")
+metadata/_custom_type_script = "uid://heivlku125oi"
+
 [connection signal="pressed" from="WorldButton" to="WorldButton/GroupSpawnArea" method="start"]
+[connection signal="pressed" from="WorldButton2" to="Door4x4" method="open"]
+[connection signal="player_requested" from="Enemy" to="GameMasterComponent" method="_on_player_requested"]

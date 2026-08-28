@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://c405if4ygopwc"]
+
+[ext_resource type="Script" uid="uid://dh786k3t0k78b" path="res://script/enemy.gd" id="1_f87vc"]
+[ext_resource type="Texture2D" uid="uid://cr2lqrryiwck5" path="res://icon.svg" id="1_h08p8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0yc80"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0yc80"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1044503888]
+script = ExtResource("1_f87vc")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1235093793]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=524255452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_0yc80")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=52892063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_0yc80")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=903975115]
+transform = Transform3D(0.51, 0, 0, 0, 0.51, 0, 0, 0, 0.51, 0, 2, 0.5)
+texture = ExtResource("1_h08p8")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=775260697]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+top_level = true
+target_position = Vector3(0, 0, 30)
+collision_mask = 3
+debug_shape_thickness = 5
