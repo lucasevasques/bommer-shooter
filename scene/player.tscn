@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bie3ku6i1fn1q"]
+
+[ext_resource type="Script" uid="uid://dam1d8yb4ajvm" path="res://script/player.gd" id="1_hjaqi"]
+[ext_resource type="Shader" uid="uid://236xh21ae6ay" path="res://script/crosshair_shader.gdshader" id="2_fvtld"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0yc80"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rw1c6"]
+shader = ExtResource("2_fvtld")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_87lll"]
+
+[node name="Player" type="CharacterBody3D" unique_id=2048335322]
+collision_layer = 2
+collision_mask = 61
+script = ExtResource("1_hjaqi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=302099142]
+shape = SubResource("CapsuleShape3D_0yc80")
+
+[node name="FPPCamera" type="Camera3D" parent="." unique_id=641682764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9951246, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1610279542]
+
+[node name="Crosshair" type="TextureRect" parent="CanvasLayer" unique_id=1533730253]
+material = SubResource("ShaderMaterial_rw1c6")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_87lll")
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer" unique_id=405973259]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "HP: 100"

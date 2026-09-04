@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://cy7a6bnbijkfo"]
+
+[ext_resource type="PackedScene" uid="uid://bie3ku6i1fn1q" path="res://scene/player.tscn" id="1_1pjjk"]
+[ext_resource type="Material" uid="uid://dhmvvjxkhm5hi" path="res://resource/grid_dark.tres" id="2_lju75"]
+[ext_resource type="PackedScene" uid="uid://b3ks2q0mdbxtf" path="res://scene/balloon.tscn" id="3_cy3g0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2kwhb"]
+sky_top_color = Color(0.39535925, 0.33932814, 0.9063459, 1)
+sky_horizon_color = Color(0.6201626, 0.55956423, 0.6913051, 1)
+ground_bottom_color = Color(0.294689, 0.10832661, 0.06827234, 1)
+ground_horizon_color = Color(0.6201626, 0.55956423, 0.6913051, 1)
+
+[sub_resource type="Sky" id="Sky_pn2ac"]
+sky_material = SubResource("ProceduralSkyMaterial_2kwhb")
+
+[sub_resource type="Environment" id="Environment_7ribo"]
+background_mode = 2
+sky = SubResource("Sky_pn2ac")
+glow_enabled = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7nx3f"]
+friction = 0.81
+rough = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u4j04"]
+size = Vector2(200, 200)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_64cxu"]
+
+[node name="Level01" type="Node3D" unique_id=1774510437]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1075884099]
+environment = SubResource("Environment_7ribo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=740411974]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=2048335322 instance=ExtResource("1_1pjjk")]
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1691685811]
+collision_mask = 23
+physics_material_override = SubResource("PhysicsMaterial_7nx3f")
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground" unique_id=2775688]
+material_override = ExtResource("2_lju75")
+mesh = SubResource("PlaneMesh_u4j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=132425924]
+shape = SubResource("WorldBoundaryShape3D_64cxu")
+
+[node name="Balloon" parent="Ground" unique_id=250776027 instance=ExtResource("3_cy3g0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.31008, 0.5, -4.1042886)
+gravity_scale = -0.5
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1823409138]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="NavigationRegion3D" unique_id=1473286036]
+material_override = ExtResource("2_lju75")
+use_collision = true
+collision_mask = 7
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1936369549]
+transform = Transform3D(4, 0, 0, 0, -1.7484555e-07, -4, 0, 4, -1.7484555e-07, 0, 0, 0)
+polygon = PackedVector2Array(-0.25, -0.25, -0.26028776, 0.9844213, -0.25, 2.25, 1.75, 2.25, 1.75, 5.25, 4.25, 5.25, 4.25, -0.25, 2, -0.25)
+depth = 4.0
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1092167621]
+transform = Transform3D(4, 0, 0, 0, -1.7484555e-07, -4, 0, 4, -1.7484555e-07, 0, 0, 0)
+operation = 2
+polygon = PackedVector2Array(-0.5, 0, -0.5, 1, -0.5, 2, 1.9661121, 1.972295, 2, 5, 4, 5, 4, 0, 2, 0)
+depth = 3.5
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2146446926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)

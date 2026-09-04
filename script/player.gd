@@ -7,6 +7,7 @@ const JUMP_VELOCITY = 4.5
 
 var last_mouse_position: Vector2i
 var mouse_sens: float = 0.01
+@export_range(0, 100, 1) var health: float = 50
 @export var bullet_damage: float = 5
 
 @onready var fpp_camera: Camera3D = $FPPCamera
@@ -80,3 +81,12 @@ func attack() -> void:
 func screen_shake() -> void:
 	var tween: Tween = create_tween()
 	tween.tween_property(fpp_camera, "v_offset", 0.0, 0.1).from(0.1)
+	
+func take_damage(amount: float) -> void:
+	print("HP: ", health)
+	health -= amount
+	if health <= 0:
+		die()
+		
+func die() -> void:
+	get_tree().quit()
