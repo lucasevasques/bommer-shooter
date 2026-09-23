@@ -31,6 +31,8 @@ func _ready() -> void:
 	player_requested.emit(self)
 	animation_player.play("idle")
 	EventBus.player_died.connect(_on_player_died)
+	EventBus.player_requested.emit(self)
+	
 	
 func _physics_process(delta: float) -> void:
 	match current_state:

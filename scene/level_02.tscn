@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dlor5cl6f6ade"]
+
+[ext_resource type="PackedScene" uid="uid://bie3ku6i1fn1q" path="res://scene/player.tscn" id="1_fw6po"]
+[ext_resource type="Material" uid="uid://dhmvvjxkhm5hi" path="res://resource/grid_dark.tres" id="1_sifit"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fw6po"]
+sky_top_color = Color(0.39535925, 0.33932814, 0.9063459, 1)
+sky_horizon_color = Color(0.6201626, 0.55956423, 0.6913051, 1)
+ground_bottom_color = Color(0.294689, 0.10832661, 0.06827234, 1)
+ground_horizon_color = Color(0.6201626, 0.55956423, 0.6913051, 1)
+
+[sub_resource type="Sky" id="Sky_sb6g2"]
+sky_material = SubResource("ProceduralSkyMaterial_fw6po")
+
+[sub_resource type="Environment" id="Environment_fqmy5"]
+background_mode = 2
+sky = SubResource("Sky_sb6g2")
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_0yc80"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wkpy8"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0yc80"]
+size = Vector2(200, 200)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0yc80"]
+
+[node name="Level02" type="Node3D" unique_id=1774819863]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=17575929]
+environment = SubResource("Environment_fqmy5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=235692179]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=2048335322 instance=ExtResource("1_fw6po")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 91.5)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=694968940]
+navigation_mesh = SubResource("NavigationMesh_0yc80")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D" unique_id=1112643286]
+physics_material_override = SubResource("PhysicsMaterial_wkpy8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D" unique_id=782246384]
+material_override = ExtResource("1_sifit")
+mesh = SubResource("PlaneMesh_0yc80")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D" unique_id=1766014246]
+shape = SubResource("WorldBoundaryShape3D_0yc80")

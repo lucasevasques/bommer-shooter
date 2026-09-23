@@ -25,6 +25,8 @@ var current_state: State = State.IDLE
 @onready var ammo_label: RichTextLabel = %AmmoLabel
 @onready var health_label: Label = %HealthLabel
 @onready var health_bar: ProgressBar = %HealthBar
+@onready var heal_feedback_rect: TextureRect = %HealFeedbackRect
+@onready var heal_particles: GPUParticles2D = %HealParticles
 
 
 
@@ -33,6 +35,8 @@ func _ready() -> void:
 	update_ammo()
 	update_health_label()
 	current_state = State.ALIVE
+	heal_feedback_rect.hide()
+	heal_particles.hide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -161,3 +165,15 @@ func get_message(message: Message) -> void:
 	if "health" in message.content:
 		health+= message.content["health"]
 		update_health_label()
+		healed_feedback()
+		
+func healed_feedback() -> void:
+	var tween: Tween = create_tween()
+	#tween.set_parallel(true)
+	
+	heal_feedback_rect.show()
+	heal_particles.show()
+	
+	tween.tween_property(heal_feedback_rect, "modulate:a", 1.0, 1.0).from(0.0)
+	tween.tween_property(heal_feedback_rect,"modulate:a", 0.0, 1.0)
+	tween.tween_callback(heal_feedback_rect.hide)

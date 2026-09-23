@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://df6ypsuo04kdi"]
+
+[ext_resource type="Script" uid="uid://de3qc5ubq2p8k" path="res://script/teleport.gd" id="1_j1m63"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_0yc80"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0yc80"]
+height = 0.375
+radius = 0.62402344
+
+[node name="Teleport" type="Node3D" unique_id=432691634]
+script = ExtResource("1_j1m63")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1096559730]
+transform = Transform3D(0.8, 0, 0, 0, -3.4969112e-08, -0.8, 0, 0.8, -3.4969112e-08, 0, 1, 0)
+mesh = SubResource("TorusMesh_0yc80")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1093482149]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2028956950]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.98672307, 0)
+shape = SubResource("CylinderShape3D_0yc80")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

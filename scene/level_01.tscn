@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://heivlku125oi" path="res://script/game_master_component.gd" id="5_cy3g0"]
 [ext_resource type="PackedScene" uid="uid://b2s3fxr7mnfrd" path="res://scene/door_4x4.tscn" id="7_7ribo"]
 [ext_resource type="PackedScene" uid="uid://cy5df74yx12e1" path="res://scene/world_button.tscn" id="8_7nx3f"]
+[ext_resource type="PackedScene" uid="uid://cao44ib6idqex" path="res://scene/collectable_ammo.tscn" id="9_u4j04"]
+[ext_resource type="PackedScene" uid="uid://beb4oxo5ii43c" path="res://scene/collectable_health.tscn" id="10_64cxu"]
+[ext_resource type="PackedScene" uid="uid://df6ypsuo04kdi" path="res://scene/teleport.tscn" id="11_2npk6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2kwhb"]
 sky_top_color = Color(0.39535925, 0.33932814, 0.9063459, 1)
@@ -108,9 +111,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.75, 0, -12.5)
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2146446926]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0.5)
 
-[node name="Enemy" parent="." unique_id=1523706846 instance=ExtResource("4_lju75")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.465954, 0.2853408, 49.903442)
-
 [node name="GameMasterComponent" type="Node" parent="." unique_id=673420170 node_paths=PackedStringArray("player")]
 script = ExtResource("5_cy3g0")
 player = NodePath("../Player")
@@ -125,33 +125,95 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.75, 0, 64)
 [node name="Door4x5" parent="." unique_id=590487662 instance=ExtResource("7_7ribo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.25, 0, -13.25)
 
-[node name="Enemy2" parent="." unique_id=1044503888 instance=ExtResource("4_lju75")]
+[node name="Ammo" parent="." unique_id=1335576067 instance=ExtResource("9_u4j04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.75, 0.25, 83)
+
+[node name="Health" parent="." unique_id=246107425 instance=ExtResource("10_64cxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.25, -11.25)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1157084684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.5, 9.75, 48)
+light_energy = 2.655
+omni_range = 27.948
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=248235947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.75, 9.75, 48)
+light_energy = 2.655
+omni_range = 27.948
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=1613795628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.25, 9.75, 32.5)
+light_energy = 2.655
+omni_range = 27.948
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="." unique_id=1761540146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.25, 9.75, 9)
+light_energy = 2.655
+omni_range = 27.948
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="." unique_id=341960565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 9.75, -14.25)
+light_energy = 2.655
+omni_range = 27.948
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1464628464]
+transform = Transform3D(1, 0, 0, 0, 2.9802322e-08, 1, 0, -1, 2.9802322e-08, -28.25, 7.25, 51.75)
+light_energy = 32.0
+spot_range = 19.527
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=623411433]
+transform = Transform3D(1, 0, 0, 0, 2.9802322e-08, 1, 0, -1, 2.9802322e-08, -28.25, 7.25, -6)
+light_energy = 32.0
+spot_range = 19.527
+
+[node name="Enemies" type="Node3D" parent="." unique_id=509702056]
+
+[node name="Enemy" parent="Enemies" unique_id=1523706846 instance=ExtResource("4_lju75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.465954, 0.2853408, 49.903442)
+
+[node name="Enemy2" parent="Enemies" unique_id=1044503888 instance=ExtResource("4_lju75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 49)
 
-[node name="Enemy3" parent="." unique_id=1378701619 instance=ExtResource("4_lju75")]
+[node name="Enemy3" parent="Enemies" unique_id=1378701619 instance=ExtResource("4_lju75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, 56.75)
 
-[node name="Enemy4" parent="." unique_id=237531287 instance=ExtResource("4_lju75")]
+[node name="Enemy4" parent="Enemies" unique_id=237531287 instance=ExtResource("4_lju75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 0, 26)
 
-[node name="Enemy5" parent="." unique_id=1606215212 instance=ExtResource("4_lju75")]
+[node name="Enemy5" parent="Enemies" unique_id=1606215212 instance=ExtResource("4_lju75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.75, 0, -3.75)
 
-[node name="Enemy6" parent="." unique_id=1053487072 instance=ExtResource("4_lju75")]
+[node name="Enemy6" parent="Enemies" unique_id=1053487072 instance=ExtResource("4_lju75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, 0, -2.25)
 
-[node name="Enemy7" parent="." unique_id=1361665899 instance=ExtResource("4_lju75")]
+[node name="Enemy7" parent="Enemies" unique_id=1361665899 instance=ExtResource("4_lju75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 0, 0.75)
 
-[node name="Enemy8" parent="." unique_id=1222332945 instance=ExtResource("4_lju75")]
+[node name="Enemy8" parent="Enemies" unique_id=1222332945 instance=ExtResource("4_lju75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.25, 0, -20.25)
 
-[node name="Enemy9" parent="." unique_id=117533827 instance=ExtResource("4_lju75")]
+[node name="Enemy9" parent="Enemies" unique_id=117533827 instance=ExtResource("4_lju75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, -17.75)
 
-[node name="Enemy10" parent="." unique_id=1940199644 instance=ExtResource("4_lju75")]
+[node name="Enemy10" parent="Enemies" unique_id=1940199644 instance=ExtResource("4_lju75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.75, 0, -21.5)
 
+[node name="Teleport" parent="." unique_id=432691634 instance=ExtResource("11_2npk6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -30)
+scene_to_load = "res://scene/level_02.tscn"
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1725835436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.5, 5.25, 74)
+text = "Use o mouse para olhar em volta
+E use W, A, S, D para se mover"
+font_size = 92
+
+[node name="Label3D2" type="Label3D" parent="." unique_id=1734792714]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -60.75, 5.25, 52.5)
+text = "Atire nos inimigos com o botão esquerdo do mouse
+Atire nos botões para abrir portas
+Pule com espaço"
+font_size = 92
+
 [connection signal="pressed" from="NavigationRegion3D/CSGCombiner3D/WorldButton" to="Door4x5" method="open"]
-[connection signal="player_requested" from="Enemy" to="GameMasterComponent" method="_on_player_requested"]
 [connection signal="pressed" from="WorldButton" to="Door4x4" method="open"]

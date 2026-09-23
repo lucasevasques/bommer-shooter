@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dam1d8yb4ajvm" path="res://script/player.gd" id="1_hjaqi"]
 [ext_resource type="Shader" uid="uid://236xh21ae6ay" path="res://script/crosshair_shader.gdshader" id="2_fvtld"]
+[ext_resource type="Texture2D" uid="uid://c5kf3t73drf21" path="res://asset/heal_sprite.png" id="3_ct4mp"]
 [ext_resource type="AudioStream" uid="uid://cvbbjns8y6qyr" path="res://asset/audio/shot_a.sfxr" id="3_fvtld"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0yc80"]
@@ -11,12 +12,36 @@ shader = ExtResource("2_fvtld")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_87lll"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yc80"]
+bg_color = Color(0.98479503, 0.3164869, 0.5540155, 1)
+
+[sub_resource type="Gradient" id="Gradient_fvtld"]
+offsets = PackedFloat32Array(0.12182741, 1)
+colors = PackedColorArray(0.2874333, 0.22358897, 0.11055716, 0, 0.5199096, 0.800424, 0.17855552, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0yc80"]
+gradient = SubResource("Gradient_fvtld")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_lxkqy"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(0.5027933, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wkpy8"]
+curve = SubResource("Curve_lxkqy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0yc80"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(800, 400, 1)
+gravity = Vector3(0, -98, 0)
+alpha_curve = SubResource("CurveTexture_wkpy8")
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bu2mq"]
 streams_count = 1
 stream_0/stream = ExtResource("3_fvtld")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yc80"]
-bg_color = Color(0.98479503, 0.3164869, 0.5540155, 1)
 
 [node name="Player" type="CharacterBody3D" unique_id=2048335322]
 collision_layer = 2
@@ -59,12 +84,7 @@ text = "000 / 000 SE VOCE CONSEGUIR LER ISSO, É UM BUG"
 fit_content = true
 autowrap_mode = 0
 
-[node name="ShotSound" type="AudioStreamPlayer3D" parent="." unique_id=938186436]
-visible = false
-stream = SubResource("AudioStreamRandomizer_bu2mq")
-bus = &"SFX"
-
-[node name="HealthBar" type="ProgressBar" parent="." unique_id=1575886607]
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer" unique_id=1575886607]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 10)
 offset_top = 32.0
@@ -73,3 +93,26 @@ offset_bottom = 42.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_0yc80")
 value = 100.0
 show_percentage = false
+
+[node name="HealFeedbackRect" type="TextureRect" parent="CanvasLayer" unique_id=1292188757]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_0yc80")
+
+[node name="HealParticles" type="GPUParticles2D" parent="CanvasLayer/HealFeedbackRect" unique_id=1276506349]
+unique_name_in_owner = true
+position = Vector2(567, 335)
+amount = 64
+texture = ExtResource("3_ct4mp")
+process_material = SubResource("ParticleProcessMaterial_0yc80")
+
+[node name="ShotSound" type="AudioStreamPlayer3D" parent="." unique_id=938186436]
+visible = false
+stream = SubResource("AudioStreamRandomizer_bu2mq")
+bus = &"SFX"

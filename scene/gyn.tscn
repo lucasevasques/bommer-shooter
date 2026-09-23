@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://heivlku125oi" path="res://script/game_master_component.gd" id="10_wy3a3"]
 [ext_resource type="PackedScene" uid="uid://beb4oxo5ii43c" path="res://scene/collectable_health.tscn" id="11_fla4i"]
 [ext_resource type="PackedScene" uid="uid://c3tnlh77k5qi1" path="res://scene/game_over_screen.tscn" id="12_3w20u"]
+[ext_resource type="PackedScene" uid="uid://df6ypsuo04kdi" path="res://scene/teleport.tscn" id="13_5jbrp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_n5dw3"]
 sky_top_color = Color(0.39535925, 0.33932814, 0.9063459, 1)
@@ -243,6 +244,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.650583, 0.3420881, -7.261
 [node name="HUD" type="CanvasLayer" parent="." unique_id=364045530]
 
 [node name="GameOverScreen" parent="HUD" unique_id=1778712970 instance=ExtResource("12_3w20u")]
+
+[node name="Teleport" parent="." unique_id=432691634 instance=ExtResource("13_5jbrp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.324857, 0, -4.470133)
+scene_to_load = "res://scene/level_01.tscn"
 
 [connection signal="pressed" from="WorldButton" to="WorldButton/GroupSpawnArea" method="start"]
 [connection signal="pressed" from="WorldButton2" to="Door4x4" method="open"]
