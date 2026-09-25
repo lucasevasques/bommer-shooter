@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://236xh21ae6ay" path="res://script/crosshair_shader.gdshader" id="2_fvtld"]
 [ext_resource type="Texture2D" uid="uid://c5kf3t73drf21" path="res://asset/heal_sprite.png" id="3_ct4mp"]
 [ext_resource type="AudioStream" uid="uid://cvbbjns8y6qyr" path="res://asset/audio/shot_a.sfxr" id="3_fvtld"]
+[ext_resource type="Texture2D" uid="uid://4tjjre4ljvg5" path="res://asset/ammo_sprite.png" id="3_s4jxa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0yc80"]
 
@@ -14,6 +15,37 @@ shader = ExtResource("2_fvtld")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yc80"]
 bg_color = Color(0.98479503, 0.3164869, 0.5540155, 1)
+
+[sub_resource type="Gradient" id="Gradient_s4jxa"]
+colors = PackedColorArray(0.6002417, 0.51279086, 0.022370018, 0, 1, 1, 0.37254903, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dhtgu"]
+gradient = SubResource("Gradient_s4jxa")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_i241j"]
+_data = [Vector2(0, 0.033707857), 0.0, 0.0, 0, 0, Vector2(0.4916201, 1), 0.0, 0.0, 0, 0, Vector2(0.9944134, 0.022471905), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lxkqy"]
+curve = SubResource("Curve_i241j")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wkpy8"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(800, 400, 1)
+gravity = Vector3(0, -98, 0)
+alpha_curve = SubResource("CurveTexture_lxkqy")
+
+[sub_resource type="Gradient" id="Gradient_oh5ij"]
+colors = PackedColorArray(0, 0, 0, 0, 0.8272342, 0, 0.08475832, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wkpy8"]
+gradient = SubResource("Gradient_oh5ij")
+fill = 2
+fill_from = Vector2(0.48290598, 0.50427353)
 
 [sub_resource type="Gradient" id="Gradient_fvtld"]
 offsets = PackedFloat32Array(0.12182741, 1)
@@ -94,8 +126,34 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_0yc80")
 value = 100.0
 show_percentage = false
 
+[node name="AmmoFeedbackRect" type="TextureRect" parent="CanvasLayer" unique_id=109544895]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_dhtgu")
+
+[node name="AmmoParticles" type="GPUParticles2D" parent="CanvasLayer/AmmoFeedbackRect" unique_id=969446238]
+unique_name_in_owner = true
+position = Vector2(567, 365)
+amount = 64
+texture = ExtResource("3_s4jxa")
+process_material = SubResource("ParticleProcessMaterial_wkpy8")
+
+[node name="DamageFeedbackRect" type="TextureRect" parent="CanvasLayer" unique_id=416104832]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_wkpy8")
+
 [node name="HealFeedbackRect" type="TextureRect" parent="CanvasLayer" unique_id=1292188757]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

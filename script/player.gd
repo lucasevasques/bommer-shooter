@@ -27,6 +27,9 @@ var current_state: State = State.IDLE
 @onready var health_bar: ProgressBar = %HealthBar
 @onready var heal_feedback_rect: TextureRect = %HealFeedbackRect
 @onready var heal_particles: GPUParticles2D = %HealParticles
+@onready var ammo_particles: GPUParticles2D = %AmmoParticles
+@onready var ammo_feedback_rect: TextureRect = %AmmoFeedbackRect
+@onready var damage_feedback_rect: TextureRect = $CanvasLayer/DamageFeedbackRect
 
 
 
@@ -37,6 +40,9 @@ func _ready() -> void:
 	current_state = State.ALIVE
 	heal_feedback_rect.hide()
 	heal_particles.hide()
+	ammo_feedback_rect.hide()
+	ammo_particles.hide()
+	damage_feedback_rect.hide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -124,6 +130,7 @@ func take_damage(amount: float) -> void:
 	#print("HP: ", health)
 	health -= amount
 	update_health_label()
+	damage_feedback()
 	if health <= 0:
 		die()
 		
@@ -156,12 +163,14 @@ func reload () -> void:
 	ammo = cartridge_size
 	update_ammo()
 	
+	
 
 
 func get_message(message: Message) -> void:
 	if "ammo" in message.content:
 		cartridges += message.content["ammo"]
 		update_ammo()
+		ammo_feedback()
 	if "health" in message.content:
 		health+= message.content["health"]
 		update_health_label()
@@ -177,3 +186,25 @@ func healed_feedback() -> void:
 	tween.tween_property(heal_feedback_rect, "modulate:a", 1.0, 1.0).from(0.0)
 	tween.tween_property(heal_feedback_rect,"modulate:a", 0.0, 1.0)
 	tween.tween_callback(heal_feedback_rect.hide)
+	
+func ammo_feedback() -> void:
+	var tween: Tween = create_tween()
+	#tween.set_parallel(true)
+	
+	ammo_feedback_rect.show()
+	ammo_particles.show()
+	
+	tween.tween_property(ammo_feedback_rect, "modulate:a", 1.0, 1.0).from(0.0)
+	tween.tween_property(ammo_feedback_rect,"modulate:a", 0.0, 1.0)
+	tween.tween_callback(ammo_feedback_rect.hide)
+	
+func damage_feedback() -> void:
+	var tween: Tween = create_tween()
+	#tween.set_parallel(true)
+	
+	damage_feedback_rect.show()
+	
+	
+	tween.tween_property(damage_feedback_rect, "modulate:a", 1.0, 0.2).from(0.0)
+	tween.tween_property(damage_feedback_rect,"modulate:a", 0.0, 0.2)
+	tween.tween_callback(damage_feedback_rect.hide)

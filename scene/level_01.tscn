@@ -209,9 +209,15 @@ E use W, A, S, D para se mover"
 font_size = 92
 
 [node name="Label3D2" type="Label3D" parent="." unique_id=1734792714]
-transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -60.75, 5.25, 52.5)
-text = "Atire nos inimigos com o botão esquerdo do mouse
-Atire nos botões para abrir portas
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -60.75, 5.25, 51.5)
+text = "Atire nos inimigos com o 
+botão esquerdo do mouse
+"
+font_size = 92
+
+[node name="Label3D3" type="Label3D" parent="." unique_id=1137737360]
+transform = Transform3D(-1, 0, 3.1786506e-08, 0, 1, 0, -3.1786506e-08, 0, -1, -26.75, 5.25, 59.75)
+text = "Atire nos botões para abrir portas
 Pule com espaço"
 font_size = 92
 

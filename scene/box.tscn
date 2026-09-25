@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://d11w4hb0oj1fd"]
+
+[ext_resource type="PackedScene" uid="uid://cijgtyqc4oebc" path="res://asset/AnimationBox.glb" id="1_dmwsn"]
+[ext_resource type="Script" uid="uid://ck53d1njdou4t" path="res://script/box.gd" id="2_3tsfx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0yc80"]
+size = Vector3(1.0500001, 1.2, 1.1)
+
+[node name="Node3D" type="Node3D" unique_id=777831341]
+
+[node name="AnimationBox2" parent="." unique_id=1451259768 instance=ExtResource("1_dmwsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02007401, -1.1920929e-07, -0.020243645)
+script = ExtResource("2_3tsfx")
+
+[node name="AnimationBox" parent="AnimationBox2" index="0" unique_id=314767368]
+transform = Transform3D(1, 0, 0, 0, 0.9999873, -0.005044615, 0, 0.005044615, 0.9999873, 0.782751, 1.0505304, -1.0199673)
+
+[node name="Area3D" type="Area3D" parent="AnimationBox2" unique_id=1092738505]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimationBox2/Area3D" unique_id=956066198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.52500004, 0.55441886, -0.49248046)
+shape = SubResource("BoxShape3D_0yc80")
+
+[editable path="AnimationBox2"]
