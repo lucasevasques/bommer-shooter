@@ -1,9 +1,7 @@
 extends CharacterBody3D
 
 enum State {IDLE, ALIVE, DEAD}
-
 const IMPACT_MESH = preload("uid://dno72hdvohili")
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
@@ -19,7 +17,6 @@ var last_mouse_position: Vector2i
 var mouse_sens: float = 0.01
 var current_state: State = State.IDLE
 
-
 @onready var fpp_camera: Camera3D = $FPPCamera
 @onready var shot_sound: AudioStreamPlayer3D = $ShotSound
 @onready var ammo_label: RichTextLabel = %AmmoLabel
@@ -30,6 +27,8 @@ var current_state: State = State.IDLE
 @onready var ammo_particles: GPUParticles2D = %AmmoParticles
 @onready var ammo_feedback_rect: TextureRect = %AmmoFeedbackRect
 @onready var damage_feedback_rect: TextureRect = $CanvasLayer/DamageFeedbackRect
+@onready var raycast: RayCast3D = %RayCast3D
+
 
 
 
@@ -80,6 +79,14 @@ func _physics_process(delta: float) -> void:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
 				velocity.z = move_toward(velocity.z, 0, SPEED)
 			
+			if raycast.is_colliding() and Input.is_action_just_pressed("interact"):
+				EventBus.interacted.emit(self, raycast.get_collider())
+			if raycast.is_colliding():
+				print(raycast.get_collider())
+				EventBus.interactable_entered.emit(self, raycast.get_collider())
+			else :
+				EventBus.intereactable_exited.emit(self, null)
+				
 		State.DEAD:
 			pass
 	
@@ -208,3 +215,7 @@ func damage_feedback() -> void:
 	tween.tween_property(damage_feedback_rect, "modulate:a", 1.0, 0.2).from(0.0)
 	tween.tween_property(damage_feedback_rect,"modulate:a", 0.0, 0.2)
 	tween.tween_callback(damage_feedback_rect.hide)
+
+
+func _on_node_pressed() -> void:
+	pass # Replace with function body.

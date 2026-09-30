@@ -86,6 +86,14 @@ shape = SubResource("CapsuleShape3D_0yc80")
 [node name="FPPCamera" type="Camera3D" parent="." unique_id=641682764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9951246, 0)
 
+[node name="RayCast3D" type="RayCast3D" parent="FPPCamera" unique_id=2146995865]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00012457371, 0)
+target_position = Vector3(0, 0, -4)
+collision_mask = 8
+collide_with_areas = true
+collide_with_bodies = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1610279542]
 
 [node name="Crosshair" type="TextureRect" parent="CanvasLayer" unique_id=1533730253]
