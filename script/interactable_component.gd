@@ -6,10 +6,14 @@ extends Node
 @export var callback: String
 @export var args: Variant
 @export var label: Label3D
+@export var is_open: bool = false
 
 func _ready() -> void:
-	EventBus.interacted.connect(_on_interected)
+	if is_open == false:
+		EventBus.interacted.connect(_on_interected, CONNECT_ONE_SHOT)
+		is_open = true
 	EventBus.interactable_entered.connect(_on_interectable_entered)
+
 	EventBus.intereactable_exited.connect(_on_interectable_exited)
 	
 	

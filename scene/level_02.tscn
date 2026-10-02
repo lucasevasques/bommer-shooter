@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bie3ku6i1fn1q" path="res://scene/player.tscn" id="1_fw6po"]
 [ext_resource type="Material" uid="uid://dhmvvjxkhm5hi" path="res://resource/grid_dark.tres" id="1_sifit"]
+[ext_resource type="PackedScene" uid="uid://c3tnlh77k5qi1" path="res://scene/game_over_screen.tscn" id="3_fqmy5"]
+[ext_resource type="Script" uid="uid://heivlku125oi" path="res://script/game_master_component.gd" id="4_6lo8s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fw6po"]
 sky_top_color = Color(0.39535925, 0.33932814, 0.9063459, 1)
@@ -50,3 +52,24 @@ mesh = SubResource("PlaneMesh_0yc80")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D" unique_id=1766014246]
 shape = SubResource("WorldBoundaryShape3D_0yc80")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=221415738]
+
+[node name="GameOverScreen" parent="HUD" unique_id=1778712970 instance=ExtResource("3_fqmy5")]
+metadata/_edit_use_anchors_ = true
+
+[node name="BlackRect" type="ColorRect" parent="HUD" unique_id=1929411568]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.038397167, 0.038397167, 0.03839716, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="GameMasterComponent" type="Node" parent="." unique_id=1765603684 node_paths=PackedStringArray("player", "black_rect")]
+script = ExtResource("4_6lo8s")
+player = NodePath("../Player")
+black_rect = NodePath("../HUD/BlackRect")
+metadata/_custom_type_script = "uid://heivlku125oi"

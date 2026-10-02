@@ -107,13 +107,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.75, 0, -12.5)
 [node name="HUD" type="CanvasLayer" parent="NavigationRegion3D" unique_id=779582353]
 
 [node name="GameOverScreen" parent="NavigationRegion3D/HUD" unique_id=1778712970 instance=ExtResource("4_2kwhb")]
+metadata/_edit_use_anchors_ = true
+
+[node name="BlackRect" type="ColorRect" parent="NavigationRegion3D/HUD" unique_id=1156351120]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.038397167, 0.038397167, 0.03839716, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2146446926]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0.5)
 
-[node name="GameMasterComponent" type="Node" parent="." unique_id=673420170 node_paths=PackedStringArray("player")]
+[node name="GameMasterComponent" type="Node" parent="." unique_id=673420170 node_paths=PackedStringArray("player", "black_rect")]
 script = ExtResource("5_cy3g0")
 player = NodePath("../Player")
+black_rect = NodePath("../NavigationRegion3D/HUD/BlackRect")
 metadata/_custom_type_script = "uid://heivlku125oi"
 
 [node name="Door4x4" parent="." unique_id=784433822 instance=ExtResource("7_7ribo")]

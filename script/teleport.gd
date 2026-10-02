@@ -4,4 +4,6 @@ extends Node3D
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if scene_to_load != "":
+		EventBus.teleport_started.emit()
+		await EventBus.teleport_finished
 		get_tree().change_scene_to_file(scene_to_load)

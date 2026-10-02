@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://d0ximkc8hp0fo" path="res://script/breakable_wall.gd" id="1_dhtgu"]
 [ext_resource type="PackedScene" uid="uid://diu5puk1gg22h" path="res://asset/BreakableWall.glb" id="2_sgc5l"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wkpy8"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_0yc80"]
 size = Vector3(4, 4.025, 0.55)
 
@@ -10,6 +12,13 @@ size = Vector3(4, 4.025, 0.55)
 script = ExtResource("1_dhtgu")
 
 [node name="BreakableWall2" parent="." unique_id=778464539 instance=ExtResource("2_sgc5l")]
+
+[node name="RigidBody3D" type="StaticBody3D" parent="." unique_id=1642277533]
+physics_material_override = SubResource("PhysicsMaterial_wkpy8")
+
+[node name="CollisionWall" type="CollisionShape3D" parent="RigidBody3D" unique_id=2088097408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.0125, -0.24999997)
+shape = SubResource("BoxShape3D_0yc80")
 
 [node name="BreakSensor" type="Area3D" parent="." unique_id=59607914]
 collision_layer = 8
